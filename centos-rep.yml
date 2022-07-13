@@ -3,15 +3,19 @@
 -  hosts: all
    become: true
    tasks:
+
    - name: update repository index 
-     apt: 
+     yum: 
        update_cache: yes
+     when: ansible_distribution == "CentOS"
 
    - name: install the apache software
-     apt:
-       name: apache2
+     yum:
+       name: httpd
+     when: ansible_distribution == "CentOS"
 
    - name: add php support for apache 
-     apt:
-       name: libapache2-mod-php
+     yum:
+       name: php
        state: latest
+     when: ansible_distribution == "CentOS"
